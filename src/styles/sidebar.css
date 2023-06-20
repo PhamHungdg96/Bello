@@ -1,0 +1,16 @@
+.absolute-div {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 5px;
+  }
+  
+  .absolute-div:hover {
+    color: #635FC7;
+    cursor: pointer;
+  }
+  
+  .absolute-div .icon {
+    font-size: 18px;
+  }
+  

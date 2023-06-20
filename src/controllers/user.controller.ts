@@ -1,17 +1,12 @@
 import {
-  User,
-  UserDB,
-  connectDB
+  User
 }from "../models/user.model"
 import {QueryTypes } from 'sequelize'
+import sequelize,{prefix_db} from "../db/db"
 import { NextFunction,Request,Response } from 'express'
 import Logger from "../utils/logger"
-import dotenv from 'dotenv'
 
-dotenv.config()
-const prefix_db = process.env.DB_PREFIX || "bello"
-const tb_name=`${prefix_db}_Users`
-
+const tb_name=`${prefix_db}_users`
 const log=Logger("UserController")
 
 const getUser = async (req:Request, res:Response, next:NextFunction) =>{
@@ -24,15 +19,15 @@ const getUser = async (req:Request, res:Response, next:NextFunction) =>{
       }
     ]
   })
-  const sequelize = await connectDB();
+  
   try{
-    const user = await sequelize.query(`SELECT id,username,status,role,name,phonenumber,createdAt,updatedAt FROM ${tb_name} where id=$1`,{
+    const users:User[] = await sequelize.query(`SELECT id,username,status,role,name,phonenumber,createdAt,updatedAt FROM ${tb_name} where id=$1`,{
       type:QueryTypes.SELECT,
       bind:[id]
     })
     // const user = await UserDB.findOne({ where: { id: id } });
-    if(user){
-      return res.status(201).send(user)
+    if(users && users.length>0){
+      return res.status(201).send(users[0])
     }
   }catch(e){
     log.debug(e.stack)
@@ -40,13 +35,12 @@ const getUser = async (req:Request, res:Response, next:NextFunction) =>{
   return res.status(404).send()
 }
 const getAllUser = async (req:Request, res:Response, next:NextFunction) =>{
-  const sequelize = await connectDB();
   try{
-    const users= await sequelize.query(`SELECT id,username,status,role,name,phonenumber,createdAt,updatedAt FROM ${tb_name}`,{
+    const users:User[]= await sequelize.query(`SELECT id,username,status,role,name,phonenumber,createdAt,updatedAt FROM ${tb_name}`,{
       type:QueryTypes.SELECT
     })
     // const users = await UserDB.findAll()
-    if(users){
+    if(users&& users.length>0){
       return res.status(201).send(users)
     }
   }catch(e){}
@@ -62,8 +56,7 @@ const updateInfoUser = async(req:Request, res:Response, next:NextFunction) =>{
       }
     ]
   })
-  const sequelize = await connectDB();
-  const users =  await sequelize.query(`SELECT id,username,status,role,name,phonenumber,createdAt,updatedAt FROM ${tb_name} where id=$1`,{
+  const users:User[] =  await sequelize.query(`SELECT id,username,status,role,name,phonenumber,createdAt,updatedAt FROM ${tb_name} where id=$1`,{
     type:QueryTypes.SELECT,
     bind:[id]
   })
@@ -92,8 +85,7 @@ const updateRoleAndStatusUser = async(req:Request, res:Response, next:NextFuncti
       }
     ]
   })
-  const sequelize = await connectDB();
-  const users =  await sequelize.query(`SELECT id,username,status,role,name,phonenumber,createdAt,updatedAt FROM ${tb_name} where id=$1`,{
+  const users:User[] =  await sequelize.query(`SELECT id,username,status,role,name,phonenumber,createdAt,updatedAt FROM ${tb_name} where id=$1`,{
     type:QueryTypes.SELECT,
     bind:[id]
   })

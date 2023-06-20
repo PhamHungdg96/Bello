@@ -51,7 +51,7 @@
             const message = document.getElementById('inputBox').value;
             
             const a=[]
-            for(var i=0;i<1000;i++){
+            for(var i=0;i<10;i++){
               a.push({i, msg:message})
             }
             ws.send(JSON.stringify(a));

@@ -1,8 +1,7 @@
 import {
-  User,
-  UserDB,
-  connectDB
+  User
 }from "../models/user.model"
+import UserDB from "../db/createtb_db"
 import { NextFunction,Request,Response } from 'express'
 import {createHmac, randomBytes} from "crypto"
 import Logger from "../utils/logger"
@@ -11,7 +10,6 @@ const log = Logger("AuthController")
 
 const login = async (req:Request, res:Response, next:NextFunction) =>{
   const { username, password } = req.body
-  await connectDB();
   const user = await UserDB.findOne({ where: { username: username } });
   if (!user) {
     return res.status(401).json({
@@ -48,7 +46,6 @@ const login = async (req:Request, res:Response, next:NextFunction) =>{
 
 const register = async (req:Request, res:Response, next:NextFunction) =>{
   const { username, password, confirmPassword } = req.body
-  await connectDB();
   const user = await UserDB.findOne({ where: { username: username } });
   if(user){
     return res.status(401).json({

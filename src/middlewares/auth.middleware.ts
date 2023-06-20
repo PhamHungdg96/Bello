@@ -49,6 +49,7 @@ const verifyJWT = (req:Request, res:Response, next:NextFunction) => {
 const permission=(required_permission:string[])=>{
   return (req:Request, res:Response, next:NextFunction) => {
     const user_permission = (req.body.jwt.role);
+    console.debug(user_permission)
     if (required_permission.includes(user_permission)) {
         return next();
     } else {

@@ -7,6 +7,7 @@ import * as http from 'http';
 import ws from './ws'
 import { AuthRoute } from "./routes/auth.route";
 import { UserRoute } from "./routes/user.route";
+import dbInit from "./db/init";
 
 dotenv.config()
 const log = Logger("APP")
@@ -27,3 +28,5 @@ ws(server);
 
 app.use("/api", AuthRoute.router)
 app.use("/api/user", UserRoute.router)
+
+dbInit()

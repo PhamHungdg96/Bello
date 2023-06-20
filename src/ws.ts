@@ -2,6 +2,7 @@ import {RawData, WebSocket, OPEN} from 'ws'
 import {Server} from "http"
 import Logger from './utils/logger';
 import {IncomingMessage} from "http"
+import { WSMiddleware } from './middlewares/ws.middleware';
 
 const log =  Logger("WS")
 const webSocketServer = new WebSocket.Server({
@@ -14,12 +15,9 @@ const webSocketServer = new WebSocket.Server({
 webSocketServer.on(
   "connection",
   function connection(ws, connectionRequest:IncomingMessage) {
-    const [_path, params] = connectionRequest?.url?.split("?");
-
-    log.debug("Client connected with params:", new URLSearchParams(params))
-    ws.on("message", (msg:RawData) => {
-      log.debug("Sizeof Pack:",(msg as ArrayBuffer).byteLength);
-      broadcast(msg)
+    ws.on("message", async (msg:RawData) => {
+      //handle message middleware (message (post, get, delete) data, notify)
+      await WSMiddleware.handlePacket(ws, msg, connectionRequest)
     });
     ws.on("error",(err:any) => {
       if(err.code){

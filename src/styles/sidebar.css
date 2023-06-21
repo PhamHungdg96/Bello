@@ -13,4 +13,20 @@
   .absolute-div .icon {
     font-size: 18px;
   }
+  .menu-container {
+    height: 100vh; /* Set a maximum height for the container */
+    overflow-y: auto; /* Show scrollbar when content exceeds container height */
+  }
   
+  .menu-container::-webkit-scrollbar {
+    width: 6px; /* Set the width of the scrollbar */
+  }
+  
+  .menu-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Set the color of the scrollbar thumb */
+    border-radius: 3px; /* Add border-radius to style the thumb shape */
+  }
+  
+  .menu-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Set the background color of the scrollbar track */
+  }

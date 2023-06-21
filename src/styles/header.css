@@ -1,0 +1,19 @@
+.custom-button {
+    background-color: #fff;
+    /* border: #423ffb solid 1px; */
+    /* border-left: #423ffb solid 1px; */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .custom-button:hover {
+    background-color: #423ffb;
+  }
+  .search-icon {
+    color: #423ffb;
+  }
+  
+  .search-icon:hover {
+    color: #fff;
+  }

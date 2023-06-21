@@ -11,7 +11,10 @@ import hideSidebarIcon from "../assets/icon-hide-sidebar.svg";
 
 import boardsSlice from "../redux/boardsSlice";
 import AddEditBoardModal from "../modals/AddEditBoardModal";
-
+import {CaretDownOutlined, CaretUpOutlined, HomeOutlined, QuestionCircleTwoTone,
+        CheckCircleOutlined, MessageOutlined, UsergroupAddOutlined, ReconciliationOutlined, MenuFoldOutlined , MenuUnfoldOutlined,
+        IdcardOutlined , TrophyOutlined} from '@ant-design/icons'
+import {Drawer} from 'antd'
 function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
   const dispatch = useDispatch();
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
@@ -30,30 +33,127 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
   const toggleSidebar = () => {
     setIsSideBarOpen((curr) => !curr);
   };
+  const [showDiv, setShowDiv] = useState(false);
 
+  function showProjects() {
+    setShowDiv(!showDiv);
+  }
+  const [activeButton, setActiveButton] = useState('');
+
+  // const handleClick = (buttonId) => {
+  //   setActiveButton(buttonId);
+  //   console.log(activeButton)
+  // };
+  const [open, setOpen] = useState(false);
+
+  const showHelper = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
   return (
-    <div>
+    <div >
+      <Drawer
+                title="Help & Getting Started"
+                placement="right"
+                closable={false}
+                onClose={onClose}
+                open={open}
+                getContainer={false}
+                // style={{backgroundColor: '#2b2c37', opacity: 0.9, color: '#fff'}}
+              >
+                <p>Some contents...</p>
+      </Drawer>
+      
       <div
         className={
           isSideBarOpen
-            ? `min-w-[261px] bg-white dark:bg-[#2b2c37]  fixed top-[72px] h-screen  items-center left-0 z-20`
-            : ` bg-[#635FC7] dark:bg-[#2b2c37] dark:hover:bg-[#635FC7] top-auto bottom-10 justify-center items-center hover:opacity-80 cursor-pointer  p-0 transition duration-300 transform fixed felx w-[56px] h-[48px] rounded-r-full  `
+            ? `min-w-[261px] bg-white dark:bg-[#2b2c37] h-screen fixed top-[72px] scrollbar-hide h-screen overflow-x-scroll items-center left-0 z-20 menu-container`
+            : ` bg-[#635FC7] dark:bg-[#2b2c37] dark:hover:bg-[#635FC7] top-[72px] scrollbar-hide overflow-x-scroll justify-center items-center hover:cursor-pointer  p-0 transition duration-300 transform fixed felx`
         }
+       
       >
+        {/* Sidebar hide/show toggle */}
+   
+        {isSideBarOpen ? (
+          <div>
+            <hr></hr>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }} onClick={() => toggleSidebar()} className="dark:bg-[#2b2c37] dark:hover:bg-[#635FC7]">
+                {isSideBarOpen && <MenuFoldOutlined style={{ marginRight: '10px', fontSize: '25px', color: '#fff', padding: '10px',}}/>}
+            </div>
+            <hr></hr>
+          </div>
+        
+          ) : (
+            <div onClick={() => toggleSidebar()}>
+              <MenuUnfoldOutlined style={{ marginRight: '10px', fontSize: '25px', padding: '10px', paddingRight: '0',color: '#fff' }}/>
+            </div>
+          )}
         <div>
+          
           {/* reWrite modal  */}
-
           {isSideBarOpen && (
             <div className=" bg-white  dark:bg-[#2b2c37]    w-full   py-4 rounded-xl">
-              <h3 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8 ">
-                PROJECTS ({boards?.length})
-              </h3>
+              
+              <h4 className={` flex items-baseline space-x-2 px-5 mr-0 rounded-r-full duration-300 ease-in-out py-2 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white
+              ${ activeButton === 'button-home' && " bg-[#635fc7] rounded-r-full text-white mr-8 "}`} onClick={() => setActiveButton('button-home')}>
+                <button style={{ display: 'flex', alignItems: 'center'}} >
+                  <HomeOutlined style={{ marginRight: '10px', fontSize: '25px' }} />
+                  Home
+                </button>
+              </h4>
+              <h4 className={` flex items-baseline space-x-2 px-5 mr-0 rounded-r-full duration-300 ease-in-out py-2 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white 
+              ${ activeButton==='button-tasks' && " bg-[#635fc7] rounded-r-full text-white mr-8 "}`}  onClick={() => setActiveButton('button-tasks')}>
+                <button style={{ display: 'flex', alignItems: 'center'}} >
+                  <CheckCircleOutlined style={{ marginRight: '10px', fontSize: '25px' }} />
+                  My Tasks
+                </button>
+              </h4>
+              <h4 className={` flex items-baseline space-x-2 px-5 mr-0 rounded-r-full duration-300 ease-in-out py-2 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white 
+              ${ activeButton==='button-inbox' && " bg-[#635fc7] rounded-r-full text-white mr-8 "}`}  onClick={() => setActiveButton('button-inbox')}>
+                <button style={{ display: 'flex', alignItems: 'center'}} >
+                  <MessageOutlined style={{ marginRight: '10px', fontSize: '25px' }} />
+                  Inbox
+                </button>
+              </h4>
+              <h4 className={` flex items-baseline space-x-2 px-5 mr-0 rounded-r-full duration-300 ease-in-out py-2 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white 
+              ${ activeButton==='button-report' && " bg-[#635fc7] rounded-r-full text-white mr-8 "}`}  onClick={() => setActiveButton('button-report')}>
+                <button style={{ display: 'flex', alignItems: 'center'}} >
+                  <ReconciliationOutlined style={{ marginRight: '10px', fontSize: '25px' }} />
+                  Report
+                </button>
+              </h4>
+              <h4 className={` flex items-baseline space-x-2 px-5 mr-0 rounded-r-full duration-300 ease-in-out py-2 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white 
+              ${ activeButton==='button-portfolios' && " bg-[#635fc7] rounded-r-full text-white mr-8 "}`}  onClick={() => setActiveButton('button-portfolios')}>
+                <button style={{ display: 'flex', alignItems: 'center'}} >
+                  <IdcardOutlined style={{ marginRight: '10px', fontSize: '25px' }} />
+                  Portfolios
+                </button>
+              </h4>
+              <h4 className={` flex items-baseline space-x-2 px-5 mr-0 rounded-r-full duration-300 ease-in-out py-2 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white 
+              ${ activeButton==='button-goals' && " bg-[#635fc7] rounded-r-full text-white mr-8 "}`}  onClick={() => setActiveButton('button-goals')}>
+                <button style={{ display: 'flex', alignItems: 'center'}} >
+                  <TrophyOutlined style={{ marginRight: '10px', fontSize: '25px' }} />
+                  Goals
+                </button>
+              </h4>
+              <hr style={{ margin: '1.5rem 0', backgroundColor: 'gray' }} />
+              <h4 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8 ">
+              <button onClick={showProjects} style={{ display: 'flex', alignItems: 'center' }}>
+                
+                {showDiv ? <CaretDownOutlined style={{ marginRight: '10px', fontSize: '25px' }} /> : <CaretUpOutlined style={{ marginRight: '10px', fontSize: '25px' }} />}
+                Projects ({boards?.length})
+              </button>
 
-              <div className="  dropdown-borad flex flex-col h-[70vh]  justify-between ">
+              </h4>
+              {showDiv && 
+              <div className="  dropdown-borad flex flex-coljustify-between ">
                 <div>
                   {boards.map((board, index) => (
                     <div
-                      className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white  ${
+                      className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-300 ease-in-out py-2 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white  ${
                         board.isActive &&
                         " bg-[#635fc7] rounded-r-full text-white mr-8 "
                       } `}
@@ -63,7 +163,7 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
                       }}
                     >
                       <img src={boardIcon} className="  filter-white  h-4 " />{" "}
-                      <p className=" text-lg font-bold ">{board.name}</p>
+                      <p className="">{board.name}</p>
                     </div>
                   ))}
 
@@ -73,8 +173,7 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
                       setIsBoardModalOpen(true);
                     }}
                   >
-                    <img src={boardIcon} className="   filter-white  h-4 " />
-                    <p className=" text-lg font-bold  ">Create New Board </p>
+                    <p className="">Create New Board </p>
                   </div>
                 </div>
 
@@ -97,29 +196,29 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
 
                   <img src={darkIcon} alt="moon indicating dark mode" />
                 </div> */}
+                
               </div>
+              }
+              <hr style={{ margin: '1.5rem 0', backgroundColor: 'gray' }} />
+                  <h4 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8 ">
+                    <button style={{ display: 'flex', alignItems: 'center' }}>
+                      <UsergroupAddOutlined style={{ marginRight: '10px', fontSize: '25px' }}  />
+                      Invite Teammates
+                    </button>
+              </h4>
+              <hr style={{ margin: '1.5rem 0', backgroundColor: 'gray' }} />
+                  <h4 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8 " onClick={showHelper}>
+                    <button style={{ display: 'flex', alignItems: 'center' }}>
+                      <QuestionCircleTwoTone style={{ marginRight: '10px', fontSize: '25px' }}  />
+                      Help & Getting Started
+                    </button>
+              </h4>
+              
             </div>
             
           )}
+         
 
-          {/* Sidebar hide/show toggle */}
-          {isSideBarOpen ? (
-            <div
-              onClick={() => toggleSidebar()}
-              className=" flex  items-center mt-2  absolute bottom-16  text-lg font-bold  rounded-r-full hover:text-[#635FC7] cursor-pointer mr-6 mb-8 px-8 py-4 hover:bg-[#635fc71a] dark:hover:bg-white  space-x-2 justify-center  my-4 text-gray-500 "
-            >
-              <img
-                className=" min-w-[20px]"
-                src={hideSidebarIcon}
-                alt=" side bar show/hide"
-              />
-              {isSideBarOpen && <p> Hide Sidebar </p>}
-            </div>
-          ) : (
-            <div className=" absolute p-5  " onClick={() => toggleSidebar()}>
-              <img src={showSidebarIcon} alt="showSidebarIcon" />
-            </div>
-          )}
         </div>
       </div>
 
@@ -129,6 +228,7 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
           setIsBoardModalOpen={setIsBoardModalOpen}
         />
       )}
+      
     </div>
   );
 }

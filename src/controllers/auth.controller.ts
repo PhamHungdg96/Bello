@@ -1,7 +1,7 @@
 import {
   User
 }from "../models/user.model"
-import UserDB from "../db/createtb_db"
+import {UserDB} from "../db/createtb_db"
 import { NextFunction,Request,Response } from 'express'
 import {createHmac, randomBytes} from "crypto"
 import Logger from "../utils/logger"

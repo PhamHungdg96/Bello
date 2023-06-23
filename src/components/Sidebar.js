@@ -8,10 +8,11 @@ import lightIcon from "../assets/icon-light-theme.svg";
 
 import showSidebarIcon from "../assets/icon-show-sidebar.svg";
 import hideSidebarIcon from "../assets/icon-hide-sidebar.svg";
-
+import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
+import {Tooltip, Avatar, Space} from 'antd';
 import boardsSlice from "../redux/boardsSlice";
 import AddEditBoardModal from "../modals/AddEditBoardModal";
-import {CaretDownOutlined, CaretUpOutlined, HomeOutlined, QuestionCircleTwoTone,
+import {CaretDownOutlined, CaretUpOutlined, HomeOutlined, QuestionCircleTwoTone,AppstoreOutlined, AppstoreAddOutlined,
         CheckCircleOutlined, MessageOutlined, UsergroupAddOutlined, ReconciliationOutlined, MenuFoldOutlined , MenuUnfoldOutlined,
         IdcardOutlined , TrophyOutlined} from '@ant-design/icons'
 import {Drawer} from 'antd'
@@ -150,7 +151,22 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
               </h4>
               {showDiv && 
               <div className="  dropdown-borad flex flex-coljustify-between ">
+               
                 <div>
+                    <div className="flex items-baseline space-x-2 px-3 mr-2 mb-5 ml-5 pt-0 cursor-pointer">
+                    <Avatar.Group>
+                      <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+                      <Avatar src="https://freenice.net/wp-content/uploads/2021/08/hinh-anh-avatar-dep-639x600.jpg" />
+                      <Avatar src="https://i.pinimg.com/236x/44/bf/4d/44bf4d17d985189dbfc909c99664123c.jpg" />
+                      <a href="https://ant.design">
+                        <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+                      </a>
+                      <Tooltip title="Ant User" placement="top">
+                        <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+                      </Tooltip>
+                      <Avatar style={{ backgroundColor: '#1677ff' }} icon={<AntDesignOutlined />} />
+                    </Avatar.Group>
+                    </div>
                   {boards.map((board, index) => (
                     <div
                       className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-300 ease-in-out py-2 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white  ${
@@ -162,7 +178,7 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
                         dispatch(boardsSlice.actions.setBoardActive({ index }));
                       }}
                     >
-                      <img src={boardIcon} className="  filter-white  h-4 " />{" "}
+                     <AppstoreOutlined className="h-4" style={{fontSize: '25px', color: '#fff'}} />{" "}
                       <p className="">{board.name}</p>
                     </div>
                   ))}
@@ -173,7 +189,8 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
                       setIsBoardModalOpen(true);
                     }}
                   >
-                    <p className="">Create New Board </p>
+                    <AppstoreAddOutlined className="h-4 " style={{fontSize: '25px'}} />{" "}
+                    <p className="">Create New Project </p>
                   </div>
                 </div>
 

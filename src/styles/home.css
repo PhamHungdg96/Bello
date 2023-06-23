@@ -5,6 +5,7 @@
     margin-left: 25px;
     width: 100vw;
     overflow-y: scroll;
+    height: 100vh;
   }
   
   .scroll-container::-webkit-scrollbar {
@@ -41,8 +42,17 @@
     background-color: #20212c;
     color: #fff;
   }
-  .tab-label{
-    color:#fff;
-    font-size: 15px;
-    font-weight: 700;
+  .tabs-container {
+    background-color: inherit;
+    color: #f4f7fd;
+    border-radius: 8px;
+    padding: 16px;
+    /* Add more custom styles as needed */
   }
+  
+  .tab-label {
+    font-weight: bold;
+    font-size: 14px;
+    /* Add more custom styles as needed */
+  }
+  

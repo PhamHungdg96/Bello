@@ -53,7 +53,7 @@ function TaskModal({ taskIndex, colIndex, setIsTaskModalOpen }) {
       setIsTaskModalOpen(false);
       setIsDeleteModalOpen(false);
     } else {
-      setIsDeleteModalOpen(false);
+      setIsDeleteModalOpen(true);
     }
   };
 
@@ -131,7 +131,7 @@ function TaskModal({ taskIndex, colIndex, setIsTaskModalOpen }) {
             onChange={onChange}
           >
             {columns.map((col, index) => (
-              <option className="status-options" key={index}>
+              <option className="status-options" key={index} style={{color: '#635fc7', fontWeight: '500'}}>
                 {col.name}
               </option>
             ))}

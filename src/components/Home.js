@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 import { Card,Row, Input, Tabs, Button, Typography} from 'antd';
 import { DeleteOutlined, StarOutlined, StarTwoTone } from '@ant-design/icons';
 import "../styles/home.css"
+import Item from "antd/es/list/Item";
 
 const { TabPane } = Tabs;
 function Home() {
@@ -46,15 +47,23 @@ function Home() {
           ? " bg-[#f4f7fd] flex dark:bg-[#20212c] gap-6 ml-[301px]"
           : "bg-[#f4f7fd] flex dark:bg-[#20212c] gap-6 ml-[70px]"
       }>
-     <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <TabPane tab={<span className="tab-label">Overview</span>} key="overview" />
-        <TabPane tab={<span className="tab-label">List</span>} key="list" />
-        <TabPane tab={<span className="tab-label">Board</span>} key="board" />
-        <TabPane tab={<span className="tab-label">TimeLine</span>} key="timeline" />
-        <TabPane tab={<span className="tab-label">Calendar</span>} key="calendar" />
-        <TabPane tab={<span className="tab-label">Workflow</span>} key="workflow" />
-        <TabPane tab={<span className="tab-label">Dashboard</span>} key="dashboard" />
+     <Tabs activeKey={activeTab} 
+            onChange={handleTabChange} 
+            type="card" 
+            className="tabs-container"
+            tabBarStyle={{ display: 'flex' }}
+            tabBarGutter={0}
+
+      >
+        <Item className="w-[150px]" tab={<span className="tab-label">Overview</span>} key="overview" />
+        <Item className="w-[150px]" tab={<span className="tab-label">List</span>} key="list" />
+        <Item className="w-[150px]" tab={<span className="tab-label">Board</span>} key="board" />
+        <Item tab={<span className="tab-label">TimeLine</span>} key="timeline" />
+        <Item tab={<span className="tab-label">Calendar</span>} key="calendar"/>
+        <Item tab={<span className="tab-label">Workflow</span>} key="workflow"/>
+        <Item tab={<span className="tab-label">Dashboard</span>} key="dashboard"/>
     </Tabs>
+   
     </div>
     <div
       className={
@@ -95,7 +104,7 @@ function Home() {
                   onClick={() => {
                     setIsBoardModalOpen(true);
                   }}
-                  className=" dark:bg-[#2b2c3740] flex justify-center items-center font-bold text-2xl hover:text-[#635FC7] transition duration-300 cursor-pointer bg-[#E9EFFA] scrollbar-hide mb-2   mx-5 pt-[90px] min-w-[280px] text-[#828FA3] mt-[135px] rounded-lg "
+                  className=" dark:bg-[#2b2c3740] flex justify-center items-center font-bold text-2xl hover:text-[#635FC7] transition duration-300 cursor-pointer bg-[#E9EFFA] scrollbar-hide mb-2   mx-5 pt-[30px] min-w-[280px] text-[#828FA3] mt-[75px] rounded-lg "
                 >
                   + New Column
                 </div>

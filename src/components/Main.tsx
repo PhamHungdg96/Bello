@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { Card } from 'antd';
-import Board from './Board';
+import Project from './Project/Project';
 const { Content } = Layout;
 const tabList = [
   {
@@ -33,7 +33,7 @@ const tabList = [
 const contentList: Record<string, React.ReactNode> = {
   Overview: <p>Overview</p>,
   List: <p>List</p>,
-  Board: <Board/>,
+  Board: <Project/>,
   Timeline: <p>Timeline</p>,
   Calendar: <p>Calendar</p>,
   Workflow: <p>Workflow</p>,

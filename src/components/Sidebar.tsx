@@ -5,9 +5,28 @@ import {CalendarOutlined, HomeOutlined, QuestionCircleTwoTone,
 import type { MenuProps } from 'antd';
 import {Menu } from 'antd';
 import Logo from "../assets/ASAN.svg";
+import { IProject } from '../Interfaces/Bello';
 import '../styles/sidebar.css'
-type MenuItem = Required<MenuProps>['items'][number];
 
+type MenuItem = Required<MenuProps>['items'][number];
+const dummyProjects: IProject[] = [
+  {
+    id: 1,
+    name: "Project 1",
+    createdBy: "User A",
+    sectionId: 1,
+    // createdAt: new Date("2023-06-10T12:00:00Z"),
+    // updatedAt: new Date("2023-06-10T14:30:00Z"),
+  },
+  {
+    id: 2,
+    name: "Project 2",
+    createdBy: "User B",
+    sectionId: 2,
+    // createdAt: new Date("2023-06-11T09:30:00Z"),
+    // updatedAt: new Date("2023-06-11T11:45:00Z"),
+  },
+];
 function getItem(
   label: React.ReactNode,
   key: React.Key,
@@ -30,11 +49,11 @@ const items: MenuItem[] = [
   getItem('Report', '4', <ReconciliationOutlined />),
   getItem('Portfolios', '5', <IdcardOutlined />),
   getItem('Goals', '6', <TrophyOutlined />),
-  getItem('Projects', 'projects', <CalendarOutlined />, [
-    getItem('Tom', '7'),
-    getItem('Bill', '8'),
-    getItem('Alex', '9'),
-  ]),
+  getItem('Projects', 'projects', <CalendarOutlined />, 
+      dummyProjects.map((project) =>
+      getItem(project.name, project.id.toString())
+  )),
+
   getItem('Invite teammates', '10', <UsergroupAddOutlined />),
   getItem('Help & Getting Started', '11', <QuestionCircleTwoTone />),
 ];

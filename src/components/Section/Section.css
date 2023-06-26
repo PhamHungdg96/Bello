@@ -1,0 +1,76 @@
+.section {
+  min-width: 290px;
+  width: 290px;
+  height: 100%;
+  overflow-y: auto;
+  flex-basis: 290px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
+  
+  color: #204d67;
+}
+.section-inner{
+  background-color: #f6f5f5;
+  padding: 15px;
+  border-radius: 3px;
+}
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+}
+
+.section-header-title {
+  font-weight: bold;
+  font-size: 1rem;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.section-header-title span {
+  color: rgb(145, 145, 145);
+}
+
+.section-header-title-more {
+  cursor: pointer;
+  position: relative;
+}
+
+.section-dropdown {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  padding: 10px;
+  width: 150px !important;
+  cursor: default;
+}
+.section-dropdown p {
+  border-bottom: 1px solid #f8f8f8;
+  cursor: pointer;
+}
+
+.section-cards {
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.section-add-card {
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 1px 1px 0 1px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  text-align: center;
+}
+.section-add-card-edit {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+}

@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { CalendarOutlined, CheckSquareOutlined, FileOutlined, TagOutlined, DeleteOutlined, FormOutlined } from '@ant-design/icons';
-import {Card, Input, Space, Row, Col, Typography} from 'antd';
-import { DatePicker } from 'antd';
+// import { CalendarOutlined, CheckSquareOutlined, FileOutlined, TagOutlined, DownOutlined,DeleteOutlined, FormOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
+import {
+  DatePicker,
+  Form,
+  Select,
+  Upload,
+  Divider
+} from 'antd';
+import {Card, Input, Space, Row, Col, Typography, Dropdown, Button, Layout} from 'antd';
 import Modal from "../../Modal/Modal";
 import CustomInput from "../../CustomInput/CustomInput";
-
+import CommentBox from "../../CommentBox/CommentBox";
+import type { MenuProps } from 'antd';
 import "./TaskInfo.css";
 import { ITask, ISubTask } from "../../../Interfaces/Bello";
 interface TaskInfoProps {
@@ -15,7 +23,7 @@ interface TaskInfoProps {
 }
 function TaskInfo(props: TaskInfoProps) {
   const { onClose, task, sectionId, updateTask } = props;
-  const [selectedColor, setSelectedColor] = useState("");
+  // const [selectedColor, setSelectedColor] = useState("");
   const [taskValues, setTaskValues] = useState<ITask>({
     ...task,
   });
@@ -78,77 +86,96 @@ function TaskInfo(props: TaskInfoProps) {
   useEffect(() => {
     if (updateTask) updateTask(sectionId, taskValues.id, taskValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [taskValues]);
+  }, [taskValues]);;
+  
+  const handleMenuClick: MenuProps['onClick'] = (e) => {
+    console.log('click', e);
+  };
+  
+  const items: MenuProps['items'] = [
+    {
+      label: '1st menu item',
+      key: '1',
+      
+    },
+    {
+      label: '2nd menu item',
+      key: '2',
+      
+    },
+    {
+      label: '3rd menu item',
+      key: '3',
+      danger: true,
+    },
+  ];
+  
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
+  };
+  const { TextArea } = Input;
+
+  const normFile = (e: any) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
   return (
     <Modal onClose={onClose}>
-      <Card>
-        <Row>
-          <Col span={12} className="taskinfo-box-title">
-            
-            <Typography.Title level={5}><FormOutlined /> Title</Typography.Title>
-          </Col>
-          <Col span={12}>
-          <Input
-              defaultValue={taskValues.title}
-              value={taskValues.title}
-              placeholder="Enter Title"
-              onChange={(e) => updateTitle(e.target.value)}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12} className="taskinfo-box-title">
-            
-            <Typography.Title level={5}><FileOutlined /> Description</Typography.Title>
-          </Col>
-          <Col span={12}>
-          <Input
-            defaultValue={taskValues.content}
-            value={taskValues.content || "Add a Description"}
-            placeholder="Enter description"
-            onChange={(e) => updateDesc(e.target.value)}
-          />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col span={12} className="taskinfo-box-title">
-            <Typography.Title level={5}><CalendarOutlined /> Date</Typography.Title>
-          </Col>
-          <Col span={12}>
-            <DatePicker
-              onChange={(date, dateString) => updateDate(dateString)}
-            />
-          </Col>
-        </Row>
-        
-        <Card className="taskinfo-box">
-          <div className="taskinfo-box-title">
-            <CheckSquareOutlined />
-            <p>Subtasks</p>
-          </div>
-          <div className="taskinfo-box-task-list">
-            {taskValues.subTasks?.map((item) => (
-              <div key={item.id} className="taskinfo-box-task-checkbox">
-                <input
-                  type="checkbox"
-                  defaultChecked={item.completed}
-                  onChange={(event) =>
-                    updateSubTask(item.id, event.target.checked)
-                  }
+        <Layout>
+          <Layout style={{ overflow: "auto", maxHeight: "calc(100% - 80px)", background: "#ffffff"}}>
+            <Form
+            labelCol={{ span: 4 }}
+            wrapperCol={{ span: 14 }}
+            layout="horizontal"
+            style={{ maxWidth: 600 }}
+            >
+              <Form.Item label="Title">
+                <Input
+                defaultValue={taskValues.title}
+                value={taskValues.title}
+                placeholder="Enter Title"
+                onChange={(e) => updateTitle(e.target.value)}
                 />
-                <p className={item.completed ? "completed" : ""}>{item.text}</p>
-                <DeleteOutlined onClick={() => removeTask(item.id)} />
-              </div>
-            ))}
-          </div>
-          <CustomInput
-            text={"Add a SubTask"}
-            placeholder="Enter subtask"
-            onSubmit={addSubTask}
-          />
-        </Card>
-      </Card>
+              </Form.Item>
+              <Form.Item label="Status">
+                <Select>
+                  <Select.Option value="demo">To Do</Select.Option>
+                  <Select.Option value="demo">Doing</Select.Option>
+                  <Select.Option value="demo">Done</Select.Option>
+                </Select>
+              </Form.Item>
+            
+              <Form.Item label="Due Date">
+                <DatePicker  onChange={(date, dateString) => updateDate(dateString)}/>
+              </Form.Item>
+
+              <Form.Item label="Description">
+                <TextArea
+                  rows={4}
+                  defaultValue={taskValues.content}
+                  value={taskValues.content}
+                  placeholder="What is this task about"
+                  onChange={(e) => updateDesc(e.target.value)}
+                />
+              </Form.Item>
+              
+              <Form.Item label="Attach" valuePropName="fileList" getValueFromEvent={normFile}>
+                <Upload action="/upload.do" listType="picture-card">
+                    <PlusOutlined />
+                </Upload>
+              </Form.Item>
+              <Form.Item label="Collaborators">
+               
+              </Form.Item>
+            </Form>
+          </Layout>
+            <div style={{ height: 80 }}>
+              <CommentBox/>
+            </div>
+        </Layout>
     </Modal>
   );
 }

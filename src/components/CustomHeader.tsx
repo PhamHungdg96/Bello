@@ -26,9 +26,10 @@ const items: MenuProps['items'] = [
   },
 ];
 const App: React.FC = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  // const {
+  //   token: { colorBgContainer },
+  // } = theme.useToken();
+
   const [isFavourite, setIsFavourite] = useState(false);
   const handleFavourite = () => {
     setIsFavourite(!isFavourite);
@@ -46,7 +47,7 @@ const App: React.FC = () => {
   }
   return (
     <div>
-      <Header style={{ padding: 0, background: colorBgContainer }} >
+      <Header style={{ padding: 0, background: '#ffffff' }} >
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
           <Col className="gutter-row" span={6}>
             <Row justify="start">

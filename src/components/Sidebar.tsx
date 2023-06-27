@@ -51,7 +51,7 @@ const items: MenuItem[] = [
   getItem('Goals', '6', <TrophyOutlined />),
   getItem('Projects', 'projects', <CalendarOutlined />, 
       dummyProjects.map((project) =>
-      getItem(project.name, project.id.toString())
+      getItem(project.name, (project.id + 6).toString())
   )),
 
   getItem('Invite teammates', '10', <UsergroupAddOutlined />),
